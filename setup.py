@@ -25,6 +25,8 @@ setup(
         'numpy',
         'pandas',
         'matplotlib',
+        'dataclasses',
+        'typing',
     ],
     # Optional: Define entry points for command-line scripts
     # entry_points={
