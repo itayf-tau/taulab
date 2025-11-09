@@ -28,6 +28,9 @@ setup(
         'dataclasses',
         'typing',
     ],
+    extra_require={
+        'pandas': ['excel'],
+    },
     # Optional: Define entry points for command-line scripts
     # entry_points={
     #     'console_scripts': [
