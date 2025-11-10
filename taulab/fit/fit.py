@@ -19,4 +19,4 @@ def odr_fit(
     fit_params = output.beta
     fit_params_err = output.sd_beta
     fit_cov = output.cov_beta
-    return FitResult(fit_params, fit_params_err, fit_cov)
+    return FitResult(fit_params, fit_params_err, fit_cov, fit_func)
