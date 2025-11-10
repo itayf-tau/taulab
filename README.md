@@ -1,2 +1,2 @@
-# pylab
+# taulab
 Physics Lab helper library

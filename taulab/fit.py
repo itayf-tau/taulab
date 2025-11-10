@@ -1,6 +1,6 @@
 import numpy.typing as npt
 from scipy.odr import Model, ODR, RealData
-from pylab.datatypes import FitResult
+from taulab.datatypes import FitResult
 
 
 def odr_fit(
