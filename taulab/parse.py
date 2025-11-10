@@ -67,11 +67,10 @@ def _parse_folder_internal(
     for file in folder.iterdir():
         # Skip if not file
         if not file.is_file():
-            print(f"Skipping {file}, not a file.")
             continue
 
         # Read data and convert to DataFrame
-        parse_result = ParseResult(parse_function(file, index_col=index_col))
+        parse_result = ParseResult(parse_function(file, index_col=index_col), {})
 
         # Handle regex pattern if supplied
         if filename_pattern:
