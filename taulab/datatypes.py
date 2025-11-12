@@ -20,3 +20,9 @@ class FitResult:
 class ParseResult:
     data: pd.DataFrame
     metadata: dict
+
+
+@dataclass
+class PhysicalSize:
+    value: float
+    uncertainty: float
