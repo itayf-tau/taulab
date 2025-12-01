@@ -16,10 +16,12 @@ class Measurement:
 @dataclass
 class FitResult:
     """Standard dataclass to hold results from a curve fitting operation."""
-    params: npt.ArrayLike  # params in their order (a0, a1, a2, ...)
-    error: npt.ArrayLike  # errors corresponding to each param
-    covariance: npt.ArrayLike
+
+    params: npt.NDArray[np.float64]  # params in their order (a0, a1, a2, ...)
+    error: npt.NDArray[np.float64]  # errors corresponding to each param
+    covariance: npt.NDArray[np.float64]
     function: Callable
+    measurement: Measurement
 
     def extrapolate(self, x):
         return self.function(self.params, x)
