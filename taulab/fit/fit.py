@@ -1,7 +1,8 @@
 import numpy.typing as npt
 import numpy as np
 from scipy.odr import Model, ODR, RealData
-from taulab.datatypes import FitResult, Measurement
+from taulab.datatypes import Measurement
+from taulab.fit.fit_result import FitResult
 
 
 def odr_fit(
@@ -17,13 +18,10 @@ def odr_fit(
     odr = ODR(odr_data, model, beta0=init_values)
     output = odr.run()
 
-    fit_params = output.beta
-    fit_params_err = output.sd_beta
-    fit_cov = output.cov_beta
     measurement = Measurement(
         x=np.array(x_data),
         y=np.array(y_data),
         x_err=np.array(x_err),
         y_err=np.array(y_err),
     )
-    return FitResult(fit_params, fit_params_err, fit_cov, fit_func, measurement)
+    return FitResult(output, fit_func, measurement)

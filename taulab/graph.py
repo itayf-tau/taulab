@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-from taulab.datatypes import FitResult
+from taulab.fit.fit_result import FitResult
 
 
 class Graph:
