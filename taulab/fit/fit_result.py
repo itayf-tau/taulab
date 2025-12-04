@@ -46,8 +46,9 @@ class FitResult:
     def metrics_report(self):
         lines = []
         dof = len(self.measurement.x) - len(self._params)
-        chi2_red = self._raw_output.sum_square / dof  # type: ignore
-        p_value = scipy.stats.chi2.sf(chi2_red, dof)
+        chi2 = self._raw_output.sum_square  # type: ignore
+        chi2_red = chi2 / dof
+        p_value = scipy.stats.chi2.sf(chi2, dof)
         lines.append(f"Degrees of Freedom: {dof}")
         lines.append(f"Reduced Chi-Squared: {chi2_red:.6g}")
         lines.append(f"P-Value: {p_value:.6g}")
