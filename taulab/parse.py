@@ -69,15 +69,23 @@ def _parse_folder_internal(
         if not file.is_file():
             continue
 
-        # Read data and convert to DataFrame
-        parse_result = ParseResult(parse_function(file, index_col=index_col), {})
-
+        metadata = {}
         # Handle regex pattern if supplied
         if filename_pattern:
             pattern = re.compile(filename_pattern)
             result = pattern.match(file.name)
             if result:
-                parse_result.metadata = result.groupdict()
+                metadata = result.groupdict()
+            else:
+                # if filepattern is given, skip non-matching files
+                continue
+
+        # Read data and convert to DataFrame
+        parse_result = ParseResult(parse_function(file, index_col=index_col), metadata)
+
         # If this raises, we let it propagate
         results.append(parse_result)
+
+    if not results:
+        raise ValueError("No files were parsed from the given folder.")
     return results
