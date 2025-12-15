@@ -64,20 +64,27 @@ def _parse_folder_internal(
 ) -> list[ParseResult]:
     folder = Path(folder)
     results = []
+    compiled_pattern = re.compile(filename_pattern) if filename_pattern else None
     for file in folder.iterdir():
         # Skip if not file
         if not file.is_file():
             continue
 
-        # Read data and convert to DataFrame
-        parse_result = ParseResult(parse_function(file, index_col=index_col), {})
-
+        metadata = {}
         # Handle regex pattern if supplied
-        if filename_pattern:
-            pattern = re.compile(filename_pattern)
-            result = pattern.match(file.name)
+        if compiled_pattern:
+            result = compiled_pattern.match(file.name)
             if result:
-                parse_result.metadata = result.groupdict()
+                metadata = result.groupdict()
+            else:
+                # if file pattern is given, skip non-matching files
+                continue
+
+        # Read data and convert to DataFrame
+        parse_result = ParseResult(parse_function(file, index_col=index_col), metadata)
+
         # If this raises, we let it propagate
         results.append(parse_result)
+
+    # Return empty list if no files found
     return results
